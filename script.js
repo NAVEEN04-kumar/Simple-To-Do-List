@@ -10,19 +10,20 @@ function renderTodo() {
     <p class = "cs-empty" >ADD A TASK</p>`;
         return;
     }
-    for (let i = 0; i < myList.length; i++) {
-        const todo = myList[i];
+
+    myList.forEach(function(todo, index) {
         const { user, date } = todo;
         html += `<div class="css-task-row">
                     <div>${user}</div>
                     <div>${date}</div>
                     <button onclick="
-                        myList.splice(${i},1)
+                        myList.splice(${index},1)
                         renderTodo();
                         saveToStorage();
                     " class="css-delete-button">Delete</button>
                 </div>`;
-    }
+    });
+    
     document.querySelector('.js-user-container').innerHTML = html;
 }
 

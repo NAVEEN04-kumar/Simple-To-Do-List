@@ -11,21 +11,31 @@ function renderTodo() {
         return;
     }
 
-    myList.forEach(function(todo, index) {
+    myList.forEach((todo, index) => {
         const { user, date } = todo;
         html += `<div class="css-task-row">
                     <div>${user}</div>
                     <div>${date}</div>
-                    <button onclick="
-                        myList.splice(${index},1)
-                        renderTodo();
-                        saveToStorage();
-                    " class="css-delete-button">Delete</button>
+                    <button class="js-delete-button css-delete-button">Delete</button>
                 </div>`;
     });
     
     document.querySelector('.js-user-container').innerHTML = html;
+
+    document.querySelectorAll('.js-delete-button')
+        .forEach((deleteButton,index) => {
+            deleteButton.addEventListener('click', () => {
+                myList.splice(index,1)
+                renderTodo();
+                saveToStorage();
+            })
+        });
 }
+
+document.querySelector('.js-add-button')
+    .addEventListener('click', () => {
+        addtask();
+    })
 
 function addtask() {
     const userInput = document.querySelector('.js-user-input');
